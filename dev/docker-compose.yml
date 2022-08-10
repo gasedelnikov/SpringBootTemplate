@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+
+  postgres-db:
+    image: 'postgres:14.2-alpine'
+    container_name: 'postgres-db'
+    networks:
+      - net
+    ports:
+      - '5432:5432'
+    volumes:
+      - './.postgres-data:/var/lib/postgresql/data'
+      - './create-database.sql:/docker-entrypoint-initdb.d/1-init.sql'
+    environment:
+      LC_ALL: 'C.UTF-8'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'fti'
+      PGDATA: '/var/lib/postgresql/data'
+    restart: unless-stopped
+
+#  template-service:
+#    container_name: template-service
+#    image: gasedelnikov/template-service:latest
+#    networks:
+#      - net
+#    ports:
+#      - 8088:8088
+#    command: java -jar app.jar
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/template?currentSchema=template
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      SERVER_SERVLET_CONTEXTPATH: /
+#    depends_on:
+#      - postgres-db
+
+networks:
+  net:
+    driver: bridge
+
+

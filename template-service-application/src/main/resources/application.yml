@@ -1,0 +1,105 @@
+server:
+  address: 0.0.0.0
+  port: 8088
+  compression:
+    enabled: true
+  http2:
+    enabled: false
+  servlet:
+    contextPath: /
+
+spring:
+  servlet:
+    multipart:
+      maxFileSize: 5242880
+  profiles:
+    active: default
+  application:
+    name: ${MICROSERVICE_NAME:template-service}
+  main:
+    web-application-type: SERVLET
+    allow-bean-definition-overriding: false
+    lazy-initialization: true
+  mvc:
+    static-path-pattern: /resources/**
+    format:
+      date: iso
+      time: iso
+      date-time: iso
+    async:
+      request-timeout: 300
+  session:
+    timeout: 300
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/template?currentSchema=template
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  flyway:
+    enabled: true
+    schemas:
+      - template
+    defaultSchema: template
+    encoding: utf-8
+    baseline-on-migrate: true
+    clean-on-validation-error: true
+    clean-install: false
+    locations: classpath:db/migration
+    placeholders:
+      defaultSchema: template
+    clean-disabled: false
+
+cache:
+  user:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html
+    operationsSorter: method
+
+jwt:
+  issuer: e2b5cb0a-19f9-4472-9e5b-36d71275f2e9
+  expiration-sec: 86400
+  clock-skew-sec: 300
+  secret: 067b4e99-f1cf-4aa9-ba97-1909f0574cc4
+
+logging:
+  level:
+    root: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  address: 0.0.0.0
+  port: 8088
+  ssl:
+    enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/template?currentSchema=template_test
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  flyway:
+    enabled: true
+    schemas:
+      - template_test
+    defaultSchema: template_test
+    encoding: utf-8
+    baseline-on-migrate: true
+    clean-on-validation-error: true
+    locations: classpath:db/migration
+    placeholders:
+      defaultSchema: template_test

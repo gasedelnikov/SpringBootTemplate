@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+<!--        <version>2.3.1.RELEASE</version>-->
+        <version>2.6.3</version>
+    </parent>
+
+    <groupId>com.gri</groupId>
+    <artifactId>template-service</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+
+    <modules>
+        <module>template-service-impl</module>
+        <module>template-service-application</module>
+        <module>template-service-api</module>
+        <module>template-service-model</module>
+        <module>template-service-security</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+
+        <spring-boot.version>2.6.3</spring-boot.version>
+        <lombok.version>1.18.22</lombok.version>
+        <postgresql.version>42.2.14</postgresql.version>
+        <usertype-core.version>6.0.1.GA</usertype-core.version>
+        <org-flywaydb.version>8.0.0</org-flywaydb.version>
+        <jetbrains-annotations.version>17.0.0</jetbrains-annotations.version>
+        <jwt.version>0.9.1</jwt.version>
+        <joda-time.version>2.10.13</joda-time.version>
+        <guava.version>31.0.1-jre</guava.version>
+        <commons-lang.version>3.12.0</commons-lang.version>
+        <springdoc.version>1.6.4</springdoc.version>
+        <javax-servlet-api.version>4.0.1</javax-servlet-api.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jadira.usertype</groupId>
+                <artifactId>usertype.core</artifactId>
+                <version>${usertype-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-security</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax-servlet-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${org-flywaydb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <optional>true</optional>
+                <version>${jetbrains-annotations.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- TOOLS -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <defaultGoal>package</defaultGoal>
+
+        <pluginManagement>
+            <plugins>
+                <!-- maven-clean-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin.version}</version>
+                </plugin>
+
+                <!-- maven-compiler-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <release>${maven.compiler.release}</release>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgs>
+                            <arg>-Xlint:all,-options,-path</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-surefire-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <parallel>methods</parallel>
+                        <threadCount>4</threadCount>
+                        <perCoreThreadCount>false</perCoreThreadCount>
+                        <runOrder>alphabetical</runOrder>
+                        <reuseForks>true</reuseForks>
+                        <forkedProcessExitTimeoutInSeconds>300</forkedProcessExitTimeoutInSeconds>
+                        <forkedProcessTimeoutInSeconds>305</forkedProcessTimeoutInSeconds>
+                    </configuration>
+                </plugin>
+
+                <!-- maven-dependency-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+
+                <!-- maven-deploy-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+
+                <!-- maven-install-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin.version}</version>
+                </plugin>
+
+                <!-- maven-jar-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                </plugin>
+
+
+                <!-- maven-release-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+
+                <!-- maven-resources-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+
+
+                <!-- maven-source-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- spring-boot-maven-plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+
+
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
+</project>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>template-service</artifactId>
+        <groupId>com.gri</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>template-service-impl</artifactId>
+    <name>${project.groupId}:${project.artifactId}</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gri</groupId>
+            <artifactId>template-service-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 3-rd party dependencies to boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- TOOLS-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+<!--                        <scope>provided</scope>-->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <defaultGoal>package</defaultGoal>
+
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <!-- maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+            <!-- maven-source-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+</project>

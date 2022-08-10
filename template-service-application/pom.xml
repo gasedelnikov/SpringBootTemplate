@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>template-service</artifactId>
+        <groupId>com.gri</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>template-service-application</artifactId>
+    <packaging>jar</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <inceptionYear>2020</inceptionYear>
+    <url>no</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gri</groupId>
+            <artifactId>template-service-rest</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 3-rd party dependencies to boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+<!--            <scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- TOOLS-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <defaultGoal>package</defaultGoal>
+
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/resources</directory>
+                <filtering>false</filtering>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <!-- maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+            <!-- maven-dependency-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>true</overWriteSnapshots>
+                    <overWriteIfNewer>true</overWriteIfNewer>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>list</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/classes/maven-dependency-list.txt</outputFile>
+                            <includeScope>runtime</includeScope>
+                            <sort>true</sort>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+
+            <!-- maven-source-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+            <!-- maven-surefire-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <inherited>true</inherited>
+            </plugin>
+
+
+            <!-- spring-boot-maven-plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <mainClass>com.gri.template.TemplateServiceApplication</mainClass>
+                    <skip>false</skip>
+                    <profiles>
+                        <profile>development</profile>
+                    </profiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <configuration>
+                            <additionalProperties>
+                                <encoding.source>UTF-8</encoding.source>
+                                <encoding.reporting>UTF-8</encoding.reporting>
+                                <java.source>${java.version}</java.source>
+                                <java.target>${java.version}</java.target>
+                            </additionalProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

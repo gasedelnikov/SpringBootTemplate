@@ -1,0 +1,7 @@
+/.idea/
+/template-service-application/target/
+/template-service-api/target/
+/template-service-impl/target/
+/template-service-model/target/
+/template-service-security/target/
+/dev/.postgres-data/
